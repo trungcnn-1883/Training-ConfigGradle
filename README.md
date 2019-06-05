@@ -22,15 +22,17 @@ Ví dụ như có thể build bản free(product flavors) ở loại debug (buil
 - Manifest Entries: có thế cấu hình cho một số thuộc tính của file manifest ở trong build variants.
 Những giá trị này sẽ override lại giá trị ở trong file manifest. Điều này có ích khi muốn gen nhiều file apk mà mỗi file có tên, min, max SDK riêng, …
 Ngoài ra còn có config Dependencies, Signing, ProGuard, Multiple APK Support
+
 III. Chi tiết
+
 Build types: dùng cho quá trình phát triển app (debug, release, qa, staging ...), đơn giản như thay đổi api gọi tới, có log ra hay ko
 
 a. Các loại
+
 Có thể tạo cấu hình build types trong module-level của file build.gralde
 Mặc định ban đầu là có 2 loại:
 Debug: loại ta chạy ứng dụng trực tiếp từ IDE vào device, dùng khi đang phát triển và test ứng dụng
 Release: loại build mà ta cần phải sign apk, phải tạo release.keystore. Release build nghĩa là app sẽ được upload lên Play Store. Có ProGuard
-
 
 Ngoài ra ta có thể tự thêm build types mới, ví dụ như Q/A, Staging …
 Một số thuộc tính hay dùng:
@@ -39,10 +41,12 @@ Một số thuộc tính hay dùng:
 ProGuard sẽ giúp giảm kích thước ứng dụng, tối ưu code, không cho xem code của app (Obfuscate the code). Có 2 file ProGuard Android cung cấp là proguard-android.txt, proguard-android-optimize.txt. Ta cũng phải cấu hình thêm trong file proguard-rules.pro.
 - minifyEnable: để enable/disable ProGuard
 - signingConfig: 
+
 b. Cách triển khai 
 Xem code 
 
 2. Product flavors: dùng để tạo nhiều phiên bản tới người dùng
+
 a. Các loại
 Phải tạo một flavor dimenson khí tạo mới 1 flavor, nếu không sẽ bị báo lỗi 
 
@@ -92,24 +96,38 @@ Chạy câu lệnh
 Ngoài ra còn nhiều việc khác có thể làm với task như copy, nén file, ...
 
 4. Exclude trong Android
+
 Dùng để tránh việc phụ thuộc bắc cầu(transitive) được sinh ra trong ứng dụng. 
-Điều này có nghĩa là 2 phụ thuộc cùng có 1 sự phụ thuộc vào các phiên bản khác nhau của cùng một thư viện. Ví dụ dưới đây cho thấy 2 phụ thuộc đều có chung phụ thuộc đến thư viện org.hamcrest:hamcrest-core đối với các phiên bản khác nhau:
+Điều này có nghĩa là 2 phụ thuộc cùng có 1 sự phụ thuộc vào các phiên bản khác nhau của cùng 
+một thư viện. Ví dụ dưới đây cho thấy 2 phụ thuộc đều có chung phụ thuộc đến thư viện org.hamcrest:hamcrest-core đối với các phiên bản khác nhau:
+
 dependencies {
     androidTestCompile 'junit:junit:4.12' //(Depends on version 1.3)
+    
     androidTestCompile 'org.mockito:mockito-core:1.10.19' //(Depends on version 1.1)
+    
 }
 
-Cả hai dependencies đều là của test dependencies nên gradle sẽ có thể xử lý confict tự động. Nhưng nếu 2 cái thuộc vào 2 config khác nhau, như app và test thì sẽ có lỗi
+
+Cả hai dependencies đều là của test dependencies nên gradle sẽ có thể xử lý confict tự động.
+Nhưng nếu 2 cái thuộc vào 2 config khác nhau, như app và test thì sẽ có lỗi
 
 compile 'junit:junit:4.12' //(Depends on version 1.3) --> Chuyển sang compile
+
 androidTestCompile 'org.mockito:mockito-core:1.10.19' //(Depends on version 1.1)
+
 ==> Sẽ bị lỗi 
 
 
 Lý do:
 Khi chạy, cả APK chính và APK thử nghiệm đều có chung classpath.
-Gradle sẽ build thất bại nếu APK chính và APK thử nghiệm sử dụng cùng một thư viện nhưng trong các phiên bản khác nhau.
-  Nếu gradle không bắt được điều đó, ứng dụng của bạn có thể hoạt động khác đi trong khi test và trong quá trình chạy bình thường (bao gồm cả crash trong một số trường hợp).
+
+Gradle sẽ build thất bại nếu APK chính và APK thử nghiệm sử dụng cùng một thư viện nhưng
+trong các phiên bản khác nhau.
+
+  Nếu gradle không bắt được điều đó, ứng dụng của bạn có thể hoạt động khác đi trong khi test 
+  và trong quá trình chạy bình thường (bao gồm cả crash trong một số trường hợp).
+  
 Câu lệnh để check trong ubuntu
  ./gradlew dependencies app:dependencies --configuration implementation
 Có thể thay implemention bằng androidTestImplementation, testImplementation
