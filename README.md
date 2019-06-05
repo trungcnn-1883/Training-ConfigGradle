@@ -163,6 +163,7 @@ Câu lệnh để check trong ubuntu
 Có thể thay implemention bằng androidTestImplementation, testImplementation
 
 Hiện kết quả dạng
+
 <img src="app/src/main/java/com/img/8.png" height="300"/>
 
 
