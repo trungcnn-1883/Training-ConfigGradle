@@ -39,6 +39,8 @@ Mặc định ban đầu là có 2 loại:
 Debug: loại ta chạy ứng dụng trực tiếp từ IDE vào device, dùng khi đang phát triển và test ứng dụng
 Release: loại build mà ta cần phải sign apk, phải tạo release.keystore. Release build nghĩa là app sẽ được upload lên Play Store. Có ProGuard
 
+<img src="app/src/main/java/com/img/first.png" height="150"/>
+
 Ngoài ra ta có thể tự thêm build types mới, ví dụ như Q/A, Staging …
 Một số thuộc tính hay dùng:
 - applicationIdSuffix: hậu tố của applicationId,  nó được thêm vào sau cùng của applicationId ở trong thẻ defaultConfig {}
@@ -56,6 +58,9 @@ Xem code
 
 a. Các loại
 Phải tạo một flavor dimenson khí tạo mới 1 flavor, nếu không sẽ bị báo lỗi 
+
+<img src="app/src/main/java/com/img/Screenshot from 2019-06-05 16-33-39.png" height="100"/>
+
 
 Một số thuộc tính hay dùng
 - Application Id: Mỗi phiên bản build variant sẽ có app id khác nhau tương ứng
@@ -76,7 +81,9 @@ a. Định nghĩa
 - Task của gradle là để làm nhiệm vụ nào đó. Task có thể dùng để compile class, gen JavaDoc, tạo file JAR, nén file, copy file... Task không tự chạy mà tùy theo hành động nào đó từ cmd hoặc Android Studio
 - Trong Android Studio, có thể xem list các task ở thanh dọc bên phải, mục Gradle
 
+<img src="app/src/main/java/com/img/3.png" height="700"/>
 Những task có sẵn trong Gradle android được chia thành nhiều nhóm, có 4 nhóm chính cơ bản sau:
+
 
 
 android: Các task ở đây liên quan đến dependencies, signingReport(Những thông tin lúc đăng lên store), sourceSets(các source set được sinh ra).
@@ -106,8 +113,11 @@ tasks.create(name: "hello") << {
 - Tạo Dependencies cho Task
 Có thể tạo 1 task phụ thuộc vào một task khác, khi task đó chạy xong thì task hiện tại mới được chạy
 Dùng câu lệnh dependsOn 
-
+<img src="app/src/main/java/com/img/4.png" height="100"/>
 Chạy câu lệnh
+<img src="app/src/main/java/com/img/5.png" height="20"/>
+
+<img src="app/src/main/java/com/img/6.png" height="100"/>
 
 Ngoài ra còn nhiều việc khác có thể làm với task như copy, nén file, ...
 
@@ -136,6 +146,7 @@ androidTestCompile 'org.mockito:mockito-core:1.10.19' //(Depends on version 1.1)
 
 ==> Sẽ bị lỗi 
 
+<img src="app/src/main/java/com/img/7.png" height="150"/>
 
 Lý do:
 Khi chạy, cả APK chính và APK thử nghiệm đều có chung classpath.
@@ -150,4 +161,7 @@ Câu lệnh để check trong ubuntu
  ./gradlew dependencies app:dependencies --configuration implementation
 Có thể thay implemention bằng androidTestImplementation, testImplementation
 Hiện kết quả dạng
+<img src="app/src/main/java/com/img/8.png" height="300"/>
+
+
  Những chỗ có mũi tên -> là những bị conflict về phụ thuộc
