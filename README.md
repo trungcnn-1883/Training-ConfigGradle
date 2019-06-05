@@ -26,11 +26,12 @@ ví dụ như bản free, bản trả phí, bản cho người dùng thường, 
 Ví dụ như có thể build bản free(product flavors) ở loại debug (build types) hay bản cho admin(product flavors) ở loại release (build types)
 - Manifest Entries: có thế cấu hình cho một số thuộc tính của file manifest ở trong build variants.
 Những giá trị này sẽ override lại giá trị ở trong file manifest. Điều này có ích khi muốn gen nhiều file apk mà mỗi file có tên, min, max SDK riêng, …
+
 Ngoài ra còn có config Dependencies, Signing, ProGuard, Multiple APK Support
 
 III. Chi tiết
 
-1. Build types: dùng cho quá trình phát triển app (debug, release, qa, staging ...), đơn giản như thay đổi api gọi tới, có log ra hay ko
+1. Build types: dùng cho quá trình phát triển app (debug, release, qa, staging ...), đơn giản như khi ta thay đổi api gọi tới, có log ra hay ko, ...
 
 a. Các loại
 
