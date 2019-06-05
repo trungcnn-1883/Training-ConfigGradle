@@ -3,14 +3,19 @@
 I. Định nghĩa
 
   Hệ thống build của Android biên dịch các file resource(layout, drawable, strings, dimens, ...) và source code gói 
-  ứng dụng thành APK  
+  ứng dụng thành APK.
+  
   Android Studio sử dụng Gradle, bộ công cụ build nâng cao, để tự động hóa và quản lý quá trình build, đồng thời 
   cho phép bạn tự xác định cấu hình build
+  
   Mỗi cấu hình build có thể xác định riêng bộ code và resource của riêng nó, đồng thời sử dụng lại 
   các phần chung cho tất cả các phiên bản ứng dụng của bạn.
+  
+  
   Android plugin cho Gradle kết hợp với công cụ build để cung cấp tiến trình và setting có thể cấu hình được
   Gradle và Android plugin chạy độc lập với Android Studio. Điều này có nghĩa là có thể build Android app
   mà không cần Android Studio(có thể build bằng command line)
+  
 II. Tự cấu hình build 
  Ta có thể cấu hình nhiều mục như sau
 - Build types: xác định những thuộc tính nhất định mà Gradle sử dụng khi build và đóng gói app của, 
@@ -38,7 +43,9 @@ Ngoài ra ta có thể tự thêm build types mới, ví dụ như Q/A, Staging 
 Một số thuộc tính hay dùng:
 - applicationIdSuffix: hậu tố của applicationId,  nó được thêm vào sau cùng của applicationId ở trong thẻ defaultConfig {}
 - proguardFiles: thường dùng với build type là release, xác định cấu hình ProGuard cho app. 
-ProGuard sẽ giúp giảm kích thước ứng dụng, tối ưu code, không cho xem code của app (Obfuscate the code). Có 2 file ProGuard Android cung cấp là proguard-android.txt, proguard-android-optimize.txt. Ta cũng phải cấu hình thêm trong file proguard-rules.pro.
+ProGuard sẽ giúp giảm kích thước ứng dụng, tối ưu code, không cho xem code của app (Obfuscate the code).
+
+Có 2 file ProGuard Android cung cấp là proguard-android.txt, proguard-android-optimize.txt. Ta cũng phải cấu hình thêm trong file proguard-rules.pro.
 - minifyEnable: để enable/disable ProGuard
 - signingConfig: 
 
@@ -56,9 +63,12 @@ Một số thuộc tính hay dùng
 - resValue: tạo các resource (string, dimen, ...)
 - minSdk, targetSdk, ...
 
-b. Cách tạo
+b. Cách tạo: Xem code
 
-Sau khi tạo sẽ sinh ra Build Variant là kết hợp của Build Types và Product Flavors
+-------------------------------------------------------------------------
+
+Sau khi tạo Build Types và Product Flavors sẽ sinh ra Build Variant là kết hợp của cả hai cái
+
 
 3. Task
 
@@ -67,10 +77,16 @@ a. Định nghĩa
 - Trong Android Studio, có thể xem list các task ở thanh dọc bên phải, mục Gradle
 
 Những task có sẵn trong Gradle android được chia thành nhiều nhóm, có 4 nhóm chính cơ bản sau:
+
+
 android: Các task ở đây liên quan đến dependencies, signingReport(Những thông tin lúc đăng lên store), sourceSets(các source set được sinh ra).
+
 build: Các task liên quan đến build các variant khác nhau với các productFlavor khác nhau.
+
 install: Các task liên quan đến cài đặt ứng dụng
+
 verification: Các task liên quan đến check device, connect, kiến trúc (lint task).
+
 Nhấn vào mục trên sẽ chạy các task tương ứng hoặc có thể dùng câu lệnh để chạy
 
 b. Cách tạo task
@@ -99,9 +115,11 @@ Ngoài ra còn nhiều việc khác có thể làm với task như copy, nén fi
 
 Dùng để tránh việc phụ thuộc bắc cầu(transitive) được sinh ra trong ứng dụng. 
 Điều này có nghĩa là 2 phụ thuộc cùng có 1 sự phụ thuộc vào các phiên bản khác nhau của cùng 
-một thư viện. Ví dụ dưới đây cho thấy 2 phụ thuộc đều có chung phụ thuộc đến thư viện org.hamcrest:hamcrest-core đối với các phiên bản khác nhau:
+một thư viện. Ví dụ dưới đây cho thấy 2 phụ thuộc đều có chung phụ thuộc 
+đến thư viện org.hamcrest:hamcrest-core đối với các phiên bản khác nhau:
 
 dependencies {
+
     androidTestCompile 'junit:junit:4.12' //(Depends on version 1.3)
     
     androidTestCompile 'org.mockito:mockito-core:1.10.19' //(Depends on version 1.1)
@@ -132,5 +150,4 @@ Câu lệnh để check trong ubuntu
  ./gradlew dependencies app:dependencies --configuration implementation
 Có thể thay implemention bằng androidTestImplementation, testImplementation
 Hiện kết quả dạng
-
-    Những chỗ có mũi tên -> là những bị conflict về phụ thuộc
+ Những chỗ có mũi tên -> là những bị conflict về phụ thuộc
