@@ -30,7 +30,7 @@ Ngoài ra còn có config Dependencies, Signing, ProGuard, Multiple APK Support
 
 III. Chi tiết
 
-Build types: dùng cho quá trình phát triển app (debug, release, qa, staging ...), đơn giản như thay đổi api gọi tới, có log ra hay ko
+1. Build types: dùng cho quá trình phát triển app (debug, release, qa, staging ...), đơn giản như thay đổi api gọi tới, có log ra hay ko
 
 a. Các loại
 
@@ -85,8 +85,6 @@ a. Định nghĩa
 
 <img src="app/src/main/java/com/img/3.png" height="700"/>
 Những task có sẵn trong Gradle android được chia thành nhiều nhóm, có 4 nhóm chính cơ bản sau:
-
-
 
 android: Các task ở đây liên quan đến dependencies, signingReport(Những thông tin lúc đăng lên store), sourceSets(các source set được sinh ra).
 
