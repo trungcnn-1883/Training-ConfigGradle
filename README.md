@@ -36,7 +36,9 @@ a. Các loại
 
 Có thể tạo cấu hình build types trong module-level của file build.gralde
 Mặc định ban đầu là có 2 loại:
+
 Debug: loại ta chạy ứng dụng trực tiếp từ IDE vào device, dùng khi đang phát triển và test ứng dụng
+
 Release: loại build mà ta cần phải sign apk, phải tạo release.keystore. Release build nghĩa là app sẽ được upload lên Play Store. Có ProGuard
 
 <img src="app/src/main/java/com/img/first.png" height="150"/>
