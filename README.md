@@ -1,6 +1,6 @@
 # Training-ConfigGradle
 
-I. Định nghĩa
+# I. Định nghĩa
 
   Hệ thống build của Android biên dịch các file resource(layout, drawable, strings, dimens, ...) và source code gói 
   ứng dụng thành APK.
@@ -16,7 +16,7 @@ I. Định nghĩa
   Gradle và Android plugin chạy độc lập với Android Studio. Điều này có nghĩa là có thể build Android app
   mà không cần Android Studio(có thể build bằng command line)
   
-II. Tự cấu hình build 
+# II. Tự cấu hình build 
  Ta có thể cấu hình nhiều mục như sau
 - Build types: xác định những thuộc tính nhất định mà Gradle sử dụng khi build và đóng gói app của, 
 và thường được cấu hình cho những stage khác nhau (như debug, release) trong quá trình phát triển. Khi tạo một module mới, Android Studio sẽ tự động tạo hai loại là debug và release. 
@@ -29,7 +29,7 @@ Những giá trị này sẽ override lại giá trị ở trong file manifest. 
 
 Ngoài ra còn có config Dependencies, Signing, ProGuard, Multiple APK Support
 
-III. Chi tiết
+# III. Chi tiết
 
 1. Build types: dùng cho quá trình phát triển app (debug, release, qa, staging ...), đơn giản như khi ta thay đổi api gọi tới, có log ra hay ko, ...
 
