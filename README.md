@@ -128,7 +128,7 @@ Dùng để tránh việc phụ thuộc bắc cầu(transitive) được sinh ra
 Điều này có nghĩa là 2 phụ thuộc cùng có 1 sự phụ thuộc vào các phiên bản khác nhau của cùng 
 một thư viện. Ví dụ dưới đây cho thấy 2 phụ thuộc đều có chung phụ thuộc 
 đến thư viện org.hamcrest:hamcrest-core đối với các phiên bản khác nhau:
-
+```
 dependencies {
 
     androidTestCompile 'junit:junit:4.12' //(Depends on version 1.3)
@@ -136,14 +136,17 @@ dependencies {
     androidTestCompile 'org.mockito:mockito-core:1.10.19' //(Depends on version 1.1)
     
 }
+```
 
 
 Cả hai dependencies đều là của test dependencies nên gradle sẽ có thể xử lý confict tự động.
 Nhưng nếu 2 cái thuộc vào 2 config khác nhau, như app và test thì sẽ có lỗi
 
+```
 compile 'junit:junit:4.12' //(Depends on version 1.3) --> Chuyển sang compile
 
 androidTestCompile 'org.mockito:mockito-core:1.10.19' //(Depends on version 1.1)
+```
 
 ==> Sẽ bị lỗi 
 
