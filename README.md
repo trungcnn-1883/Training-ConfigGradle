@@ -1,6 +1,6 @@
 # Training-ConfigGradle
 
-# I. Định nghĩa
+## I. Định nghĩa
 
   Hệ thống build của Android biên dịch các file resource(layout, drawable, strings, dimens, ...) và source code gói 
   ứng dụng thành APK.
@@ -16,24 +16,24 @@
   Gradle và Android plugin chạy độc lập với Android Studio. Điều này có nghĩa là có thể build Android app
   mà không cần Android Studio(có thể build bằng command line)
   
-# II. Tự cấu hình build 
+## II. Tự cấu hình build 
  Ta có thể cấu hình nhiều mục như sau
-- Build types: xác định những thuộc tính nhất định mà Gradle sử dụng khi build và đóng gói app của, 
+- **Build types**: xác định những thuộc tính nhất định mà Gradle sử dụng khi build và đóng gói app của, 
 và thường được cấu hình cho những stage khác nhau (như debug, release) trong quá trình phát triển. Khi tạo một module mới, Android Studio sẽ tự động tạo hai loại là debug và release. 
-- Product Flavors:  đại diện cho nhiều phiên bản của app mà bạn có thể release tới người dùng, 
+- **Product Flavors**:  đại diện cho nhiều phiên bản của app mà bạn có thể release tới người dùng, 
 ví dụ như bản free, bản trả phí, bản cho người dùng thường, bản cho admin, ... Bạn có thể chỉnh sửa product flavors để dùng những phần code và resource khác nhau, trong khi vẫn dùng chung những phần code khác.
-- Build variants: là sự tổng hợp của build types và produce flavors. 
+- **Build variants**: là sự tổng hợp của build types và produce flavors. 
 Ví dụ như có thể build bản free(product flavors) ở loại debug (build types) hay bản cho admin(product flavors) ở loại release (build types)
-- Manifest Entries: có thế cấu hình cho một số thuộc tính của file manifest ở trong build variants.
+- **Manifest Entries**: có thế cấu hình cho một số thuộc tính của file manifest ở trong build variants.
 Những giá trị này sẽ override lại giá trị ở trong file manifest. Điều này có ích khi muốn gen nhiều file apk mà mỗi file có tên, min, max SDK riêng, …
 
-Ngoài ra còn có config Dependencies, Signing, ProGuard, Multiple APK Support
+Ngoài ra còn có config **Dependencies, Signing, ProGuard, Multiple APK Support**
 
-# III. Chi tiết
+## III. Chi tiết
 
-1. Build types: dùng cho quá trình phát triển app (debug, release, qa, staging ...), đơn giản như khi ta thay đổi api gọi tới, có log ra hay ko, ...
+### 1. Build types: dùng cho quá trình phát triển app (debug, release, qa, staging ...), đơn giản như khi ta thay đổi api gọi tới, có log ra hay ko, ...
 
-a. Các loại
+### a. Các loại
 
 Có thể tạo cấu hình build types trong module-level của file build.gralde
 Mặc định ban đầu là có 2 loại:
@@ -54,12 +54,12 @@ Có 2 file ProGuard Android cung cấp là proguard-android.txt, proguard-androi
 - minifyEnable: để enable/disable ProGuard
 - signingConfig: 
 
-b. Cách triển khai 
+### b. Cách triển khai 
 Xem code 
 
-2. Product flavors: dùng để tạo nhiều phiên bản tới người dùng
+### 2. Product flavors: dùng để tạo nhiều phiên bản tới người dùng
 
-a. Các loại
+### a. Các loại
 Phải tạo một flavor dimenson khí tạo mới 1 flavor, nếu không sẽ bị báo lỗi 
 
 <img src="app/src/main/java/com/img/Screenshot from 2019-06-05 16-33-39.png" height="100"/>
@@ -71,33 +71,33 @@ Một số thuộc tính hay dùng
 - resValue: tạo các resource (string, dimen, ...)
 - minSdk, targetSdk, ...
 
-b. Cách tạo: Xem code
+### b. Cách tạo: Xem code
 
 -------------------------------------------------------------------------
 
 Sau khi tạo Build Types và Product Flavors sẽ sinh ra Build Variant là kết hợp của cả hai cái
 
 
-3. Task
+### 3. Task
 
-a. Định nghĩa
+### a. Định nghĩa
 - Task của gradle là để làm nhiệm vụ nào đó. Task có thể dùng để compile class, gen JavaDoc, tạo file JAR, nén file, copy file... Task không tự chạy mà tùy theo hành động nào đó từ cmd hoặc Android Studio
 - Trong Android Studio, có thể xem list các task ở thanh dọc bên phải, mục Gradle
 
 <img src="app/src/main/java/com/img/3.png" height="700"/>
 Những task có sẵn trong Gradle android được chia thành nhiều nhóm, có 4 nhóm chính cơ bản sau:
 
-android: Các task ở đây liên quan đến dependencies, signingReport(Những thông tin lúc đăng lên store), sourceSets(các source set được sinh ra).
+**android**: Các task ở đây liên quan đến dependencies, signingReport(Những thông tin lúc đăng lên store), sourceSets(các source set được sinh ra).
 
-build: Các task liên quan đến build các variant khác nhau với các productFlavor khác nhau.
+**build**: Các task liên quan đến build các variant khác nhau với các productFlavor khác nhau.
 
-install: Các task liên quan đến cài đặt ứng dụng
+**install**: Các task liên quan đến cài đặt ứng dụng
 
-verification: Các task liên quan đến check device, connect, kiến trúc (lint task).
+**verification**: Các task liên quan đến check device, connect, kiến trúc (lint task).
 
 Nhấn vào mục trên sẽ chạy các task tương ứng hoặc có thể dùng câu lệnh để chạy
 
-b. Cách tạo task
+### b. Cách tạo task
 Có nhiều cách tạo
 
 Dùng trực tiếp
@@ -122,7 +122,7 @@ Chạy câu lệnh
 
 Ngoài ra còn nhiều việc khác có thể làm với task như copy, nén file, ...
 
-4. Exclude trong Android
+### 4. Exclude trong Android
 
 Dùng để tránh việc phụ thuộc bắc cầu(transitive) được sinh ra trong ứng dụng. 
 Điều này có nghĩa là 2 phụ thuộc cùng có 1 sự phụ thuộc vào các phiên bản khác nhau của cùng 
