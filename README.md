@@ -122,11 +122,14 @@ Chạy câu lệnh
 
 Ngoài ra còn nhiều việc khác có thể làm với task như copy, nén file, ...
 
-### 4. Exclude trong Android
+### 4. Xử lý phụ thuộc bắc cầu
+### a. Định nghĩa
 
-Dùng để tránh việc phụ thuộc bắc cầu(transitive) được sinh ra trong ứng dụng. 
+Việc phụ thuộc bắc cầu(transitive) được sinh ra trong ứng dụng. 
 Điều này có nghĩa là 2 phụ thuộc cùng có 1 sự phụ thuộc vào các phiên bản khác nhau của cùng 
-một thư viện. Ví dụ dưới đây cho thấy 2 phụ thuộc đều có chung phụ thuộc 
+một thư viện.
+
+Ví dụ dưới đây cho thấy 2 phụ thuộc đều có chung phụ thuộc 
 đến thư viện org.hamcrest:hamcrest-core đối với các phiên bản khác nhau:
 ```
 dependencies {
@@ -137,7 +140,6 @@ dependencies {
     
 }
 ```
-
 
 Cả hai dependencies đều là của test dependencies nên gradle sẽ có thể xử lý confict tự động.
 Nhưng nếu 2 cái thuộc vào 2 config khác nhau, như app và test thì sẽ có lỗi
@@ -169,6 +171,34 @@ Có thể thay implemention bằng androidTestImplementation, testImplementation
 Hiện kết quả dạng
 
 <img src="app/src/main/java/com/img/8.png" height="300"/>
+ 
+### Những chỗ có mũi tên -> là những bị conflict về phụ thuộc
+
+### b. Giải pháp
+- Dùng exclude: ta có thể chỉ định dependencies ta không muốn thêm vào 
+
+```
+ compile ('junit:junit:4.12'){
+    exclude group: 'org.hamcrest', module:'hamcrest-core'
+}
+
+androidTestCompile ('org.mockito:mockito-core:1.10.19'){
+    exclude group: 'org.hamcrest', module:'hamcrest-core'
+}
+```
+
+- Dùng force: bắt mọi dependencies phải sử dụng 1 version
+```
+android {
+    configurations.all {
+        resolutionStrategy.force 'org.hamcrest:hamcrest-core:1.1'
+    }
+}
+```
+
+Nên thận trọng với cách này bởi vì khi các dependencies thực được cập nhật và những thư viện này update version của lib hamcrest, thì trong TH này ta vẫn đang sử dụng phiên bản cũ ==> Dễ có lỗi phát s
 
 
- Những chỗ có mũi tên -> là những bị conflict về phụ thuộc
+
+
+ 
