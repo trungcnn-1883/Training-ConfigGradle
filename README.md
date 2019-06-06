@@ -196,7 +196,7 @@ android {
 }
 ```
 
-Nên thận trọng với cách này bởi vì khi các dependencies thực được cập nhật và những thư viện này update version của lib hamcrest, thì trong TH này ta vẫn đang sử dụng phiên bản cũ ==> Dễ có lỗi phát s
+Nên thận trọng với cách này bởi vì khi các dependencies (junit and mockito) được cập nhật và những thư viện này update version của lib hamcrest, thì trong TH này ta vẫn đang sử dụng phiên bản cũ ==> Dễ có lỗi phát sinh
 
 
 
